@@ -77,7 +77,8 @@ export const logout = asyncHandler(async (req, res) => {
 });
 
 export const updateProfilePic = asyncHandler(async (req, res) => {
-    const profilePic  = req.files?.profilePic[0]?.path;
+
+    const profilePic  = req.body.profilePic
 
     if (!profilePic) throw new ApiError(400, "No profile pic uploaded");
 
@@ -92,7 +93,7 @@ export const updateProfilePic = asyncHandler(async (req, res) => {
 
     const userId = req.userId;
 
-    const userFound = await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
         userId,
         {
             profilePic: uploadedPicString
@@ -105,6 +106,7 @@ export const updateProfilePic = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, "Updation sucessfull"));
 });
 
-export const checkAuth = asyncHandler((req, res) => {
-    return res.status(200).json({_id: req.userId});
+export const checkAuth = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.userId).select("-password");
+    return res.status(200).json({user});
 });

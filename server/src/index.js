@@ -7,7 +7,8 @@ import cors from 'cors';
 const app = e();
 const PORT = process.env.PORT;
 
-app.use(e.json());
+app.use(e.json({limit: '10mb'}));
+app.use(e.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
 app.use(cors({
     origin: "http://localhost:5173",

@@ -11,12 +11,7 @@ router.post("/login", login);
 
 router.post("/logout", logout);
 
-router.post("/profile", upload.fields([
-    {
-        name: "profilePic",
-        maxCount: 1
-    }
-]), tokenVerifier, updateProfilePic);
+router.post("/profile", tokenVerifier, updateProfilePic);
 
 router.get("/check", tokenVerifier, checkAuth);
 

@@ -5,6 +5,7 @@ import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from "lucide-re
 import useAuthStore from '../store/useAuthStore.js';
 import AuthImagePattern from "../components/AuthlmagePattern.jsx";
 import toast from 'react-hot-toast';
+import Navbar from '../components/Navbar.jsx';
 
 const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,16 +16,16 @@ const SignupPage = () => {
     email: ""
   });
 
-  const {signUp, isSigningUp} = useAuthStore();
+  const { signUp, isSigningUp } = useAuthStore();
 
-  const {isLoggingIn} = useAuthStore();
+  const { isLoggingIn } = useAuthStore();
 
   const validateForm = () => {
-    if(!formData.fullName.trim()) return toast.error("Full Name is required");
-    if(!formData.email.trim()) return toast.error("Email is required");
-    if(!formData.password.trim()) return toast.error("Password is required");
+    if (!formData.fullName.trim()) return toast.error("Full Name is required");
+    if (!formData.email.trim()) return toast.error("Email is required");
+    if (!formData.password.trim()) return toast.error("Password is required");
 
-    if(formData.password.length < 6) return toast.error("Password length must be atleast 6");
+    if (formData.password.length < 6) return toast.error("Password length must be atleast 6");
 
     if (!/\S+@\S+\.\S+/.test(formData.email)) return toast.error("Invalid email format");
 
@@ -35,7 +36,7 @@ const SignupPage = () => {
     e.preventDefault();
     const res = validateForm();
 
-    if(res === true) signUp(formData)
+    if (res === true) signUp(formData)
   };
 
   return (

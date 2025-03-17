@@ -47,12 +47,10 @@ function App() {
     checkAuth();
   }, [checkAuth]);
 
-  console.log(authUser);
-
   if(isCheckingAuth && !authUser) return <Loader  className="size-10 animate-spin"/>
 
   return (
-    <>
+    <div data-theme="sunset">
 
       <Navbar />
 
@@ -66,7 +64,7 @@ function App() {
 
       <Toaster />
 
-    </>
+    </div>
   )
 }
 

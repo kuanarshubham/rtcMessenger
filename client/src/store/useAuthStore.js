@@ -15,7 +15,7 @@ const useAuthStore = create((set) => ({
     checkAuth: async () => {
         try {
             const res = await Axios.get("/auth/check");
-            set({ authUser: res.data.id });
+            set({ authUser: res.data});
         }
         catch(err){
             console.log("Error in CheckAuth: ", err);
@@ -69,14 +69,32 @@ const useAuthStore = create((set) => ({
 
     logout: async() => {
         try{
-            Axios.post("/auth/logout");
+            await Axios.post("/auth/logout");
             set({authUser: null});
             toast.success("Sucessfully logged-out");
         }
         catch(err){
             toast.error(err.response.data.message);
         }
-    }
+    },
+
+    updateProfile: async(formData) => {
+        set({isUpdatingProfile: true});
+
+        try{
+            await Axios.post("/auth/profile", {
+                profilePic: formData
+            });
+            toast.success("Profile sucessfully updated");
+        }
+        catch(err){
+            toast.error(err.response.data.message);
+        }
+        finally{
+            set({isUpdatingProfile: false});
+        }
+    },
+
 }))
 
 export default useAuthStore;
