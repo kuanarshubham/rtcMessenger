@@ -11,6 +11,7 @@ import ProfilePage from './pages/ProfilePage.jsx';
 import useAuthStore from './store/useAuthStore.js';
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
+import useThemeStore from "./store/useThemeStore.js";
 
 function App() {
 
@@ -43,6 +44,8 @@ function App() {
 
   const {authUser, checkAuth, isCheckingAuth} = useAuthStore();
 
+ 
+
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
@@ -50,7 +53,7 @@ function App() {
   if(isCheckingAuth && !authUser) return <Loader  className="size-10 animate-spin"/>
 
   return (
-    <div data-theme="sunset">
+    <div>
 
       <Navbar />
 

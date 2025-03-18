@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore.js";
 import { LogOut, MessageSquare, Settings, User } from "lucide-react";
+import useThemeStore from "../store/useThemeStore.js";
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
+
+  const {theme} = useThemeStore();
 
   return (
     <header
       className="bg-base-100 border-b border-base-300 fixed w-full top-0 z-40 
     backdrop-blur-lg"
+
+    data-theme={theme}
     >
       <div className="container mx-auto px-4 h-16">
         <div className="flex items-center justify-between h-full">
