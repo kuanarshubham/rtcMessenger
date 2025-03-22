@@ -11,6 +11,8 @@ const useChatStore = create((set) => ({
     isUsersLoading: false,
     isMessagesLoading: false,
 
+    onlineUsers: [],
+
     getAllUsers: async () => {
         set({ isUsersLoading: true });
 
@@ -27,7 +29,21 @@ const useChatStore = create((set) => ({
     },
 
     getMessages: async(userId) => {
-        const res = await Axios.get(`/message/allmessages/${userId}`);
-        set({messages: res.data.})
-    } 
-}))
+        set({isMessagesLoading: true});
+        
+        try{
+            const res = await Axios.get(`/message/allmessages/${userId}`);
+        set({messages: res.data.object.allMessages});
+        }
+        catch(err){
+            toast.error(err.response.data.message);
+        }
+        finally{
+            set({isMessagesLoading: false});
+        }
+    },
+    
+    setSelectedUser: (selectedUser) => set({ selectedUser }),
+}));
+
+export default useChatStore;

@@ -7,7 +7,7 @@ import ApiError from '../lib/apiError.lib.js';
 const tokenVerifier =  asyncHandler(async(req, _, next) => {
     const token = req.cookies.jwt;
 
-    if(!token) throw new ApiError(400, "Authentication failed");
+    if(!token) throw new ApiError(400, "Authentication failed token");
 
     const userId = jwt.verify(token, process.env.SECRET_CODE);
 

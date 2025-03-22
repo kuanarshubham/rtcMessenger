@@ -50,7 +50,7 @@ export const sendMsg = asyncHandler(async(req, res) => {
 
     const image = req.file?.image[0]?.path;
 
-    if(!text) throw new ApiError(400, "No text given");
+    if(!text && !image) throw new ApiError("No text or image");
     
     let imageUrl;
     if(image){
