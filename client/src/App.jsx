@@ -3,7 +3,7 @@ import {Loader} from 'lucide-react';
 
 import './App.css';
 import Navbar from './components/Navbar.jsx';
-import Homepage from './pages/Homepage.jsx';
+import Homepage from './pages/HomePage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import SettingsPage from './pages/SettingsPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';

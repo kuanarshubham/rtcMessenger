@@ -3,6 +3,8 @@ import 'dotenv/config';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
+import path from 'path';
+
 
 const app = e();
 const PORT = process.env.PORT;
@@ -16,6 +18,7 @@ app.use(cors({
     credentials: true
 }))
 
+const __dirname = path.resolve();
 
 import connectDb from './db/connection.db.js';
 connectDb();
@@ -26,6 +29,13 @@ app.use("/api/auth", authRoute);
 import messageRoute from "./routes/message.route.js";
 app.use("/api/message", messageRoute);
 
+if (process.env.CURRENT_MODE === "production"){
+    app.use(e.static(path.join(__dirname, "../client/dist")));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../client", "dist", "index.html"));
+      });
+}
 
 app.listen(PORT, () => {
     console.log(`Server is running at ${process.env.PORT}`);
